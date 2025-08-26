@@ -369,10 +369,10 @@ void ResizeTask::kernelU4(uchar *outPtr, uint32_t xstart, uint32_t xend, uint32_
     int ys2 = std::min(maxy, starty + 2);
     int ys3 = std::min(maxy, starty + 3);
 
-    const uchar4 *yp0 = (const uchar4 *)(pin + stride * ys0);
-    const uchar4 *yp1 = (const uchar4 *)(pin + stride * ys1);
-    const uchar4 *yp2 = (const uchar4 *)(pin + stride * ys2);
-    const uchar4 *yp3 = (const uchar4 *)(pin + stride * ys3);
+    const auto *yp0 = (const uchar4 *)(pin + stride * ys0);
+    const auto *yp1 = (const uchar4 *)(pin + stride * ys1);
+    const auto *yp2 = (const uchar4 *)(pin + stride * ys2);
+    const auto *yp3 = (const uchar4 *)(pin + stride * ys3);
 
     uchar4 *out = ((uchar4 *)outPtr);
     uint32_t x1 = xstart;
@@ -440,10 +440,10 @@ void ResizeTask::kernelU2(uchar* outPtr, uint32_t xstart, uint32_t xend, uint32_
     int ys2 = std::min(maxy, starty + 2);
     int ys3 = std::min(maxy, starty + 3);
 
-    const uchar2 *yp0 = (const uchar2 *)(pin + stride * ys0);
-    const uchar2 *yp1 = (const uchar2 *)(pin + stride * ys1);
-    const uchar2 *yp2 = (const uchar2 *)(pin + stride * ys2);
-    const uchar2 *yp3 = (const uchar2 *)(pin + stride * ys3);
+    const auto *yp0 = (const uchar2 *)(pin + stride * ys0);
+    const auto *yp1 = (const uchar2 *)(pin + stride * ys1);
+    const auto *yp2 = (const uchar2 *)(pin + stride * ys2);
+    const auto *yp3 = (const uchar2 *)(pin + stride * ys3);
 
     uchar2 *out = ((uchar2 *)outPtr);
     uint32_t x1 = xstart;

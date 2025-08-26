@@ -121,8 +121,8 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
     #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 in_s = convert<ushort4>(*in);
-            ushort4 out_s = convert<ushort4>(*out);
+            auto in_s = convert<ushort4>(*in);
+            auto out_s = convert<ushort4>(*out);
             in_s = in_s + ((out_s * (ushort4)(255 - in_s.w)) >> (ushort4)8);
             *out = convertClipped(in_s);
         }
@@ -140,8 +140,8 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
      #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 in_s = convert<ushort4>(*in);
-            ushort4 out_s = convert<ushort4>(*out);
+            auto in_s = convert<ushort4>(*in);
+            auto out_s = convert<ushort4>(*out);
             in_s = out_s + ((in_s * (ushort4)(255 - out_s.w)) >> (ushort4)8);
             *out = convertClipped(in_s);
         }
@@ -159,7 +159,7 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
 #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 in_s = convert<ushort4>(*in);
+            auto in_s = convert<ushort4>(*in);
             in_s = (in_s * out->w) >> (ushort4)8;
             *out = convert<uchar4>(in_s);
         }
@@ -177,7 +177,7 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
      #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 out_s = convert<ushort4>(*out);
+            auto out_s = convert<ushort4>(*out);
             out_s = (out_s * in->w) >> (ushort4)8;
             *out = convert<uchar4>(out_s);
         }
@@ -195,7 +195,7 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
     #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 in_s = convert<ushort4>(*in);
+            auto in_s = convert<ushort4>(*in);
             in_s = (in_s * (ushort4)(255 - out->w)) >> (ushort4)8;
             *out = convert<uchar4>(in_s);
         }
@@ -213,7 +213,7 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
     #endif
         for (;x1 < x2; x1++, out++, in++) {
-            ushort4 out_s = convert<ushort4>(*out);
+            auto out_s = convert<ushort4>(*out);
             out_s = (out_s * (ushort4)(255 - in->w)) >> (ushort4)8;
             *out = convert<uchar4>(out_s);
         }
@@ -234,8 +234,8 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
             // The max value the operation could produce before the shift
             // is 255 * 255 + 255 * (255 - 0) = 130050, or 0x1FC02.
             // That value does not fit in a ushort, so we use uint.
-            uint4 in_s = convert<uint4>(*in);
-            uint4 out_s = convert<uint4>(*out);
+            auto in_s = convert<uint4>(*in);
+            auto out_s = convert<uint4>(*out);
             out_s.xyz = ((in_s.xyz * out_s.w) +
               (out_s.xyz * ((uint3)255 - (uint3)in_s.w))) >> (uint3)8;
             *out = convertClipped(out_s);
@@ -254,8 +254,8 @@ void BlendTask::blend(RenderScriptToolkit::BlendingMode mode, const uchar4* in, 
         }
      #endif
         for (;x1 < x2; x1++, out++, in++) {
-            uint4 in_s = convert<uint4>(*in);
-            uint4 out_s = convert<uint4>(*out);
+            auto in_s = convert<uint4>(*in);
+            auto out_s = convert<uint4>(*out);
             out_s.xyz = ((out_s.xyz * in_s.w) +
               (in_s.xyz * ((uint3)255 - (uint3)out_s.w))) >> (uint3)8;
             out_s.w = in_s.w;

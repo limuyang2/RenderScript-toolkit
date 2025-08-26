@@ -33,8 +33,8 @@ class Convolve5x5Task : public Task {
     void* mOut;
     // Even though we have exactly 25 coefficients, store them in an array of size 28 so that
     // the SIMD instructions can load them in three chunks of 8 and 1 of chunk of 4.
-    float mFp[28];
-    int16_t mIp[28];
+    float mFp[28]{};
+    int16_t mIp[28]{};
 
     void kernelU4(uchar* out, uint32_t xstart, uint32_t xend, const uchar* py0, const uchar* py1,
                   const uchar* py2, const uchar* py3, const uchar* py4);
@@ -149,12 +149,12 @@ static void ConvolveOneF(uint32_t x, InputOutputType* out, const InputOutputType
 void Convolve5x5Task::kernelU4(uchar* pout, uint32_t x1, uint32_t x2, const uchar* ppy0,
                                const uchar* ppy1, const uchar* ppy2, const uchar* ppy3,
                                const uchar* ppy4) {
-    uchar4* out = (uchar4*)pout;
-    const uchar4* py0 = (const uchar4*)ppy0;
-    const uchar4* py1 = (const uchar4*)ppy1;
-    const uchar4* py2 = (const uchar4*)ppy2;
-    const uchar4* py3 = (const uchar4*)ppy3;
-    const uchar4* py4 = (const uchar4*)ppy4;
+    auto* out = (uchar4*)pout;
+    const auto* py0 = (const uchar4*)ppy0;
+    const auto* py1 = (const uchar4*)ppy1;
+    const auto* py2 = (const uchar4*)ppy2;
+    const auto* py3 = (const uchar4*)ppy3;
+    const auto* py4 = (const uchar4*)ppy4;
 
     while ((x1 < x2) && (x1 < 2)) {
         ConvolveOneU<uchar4, float4>(x1, out, py0, py1, py2, py3, py4, mFp, mSizeX);
@@ -272,12 +272,12 @@ static void convolveU(const uchar* pin, uchar* pout, size_t vectorSize, size_t s
         uint32_t y4 = std::min((int32_t)y + 2, (int32_t)(sizeY - 1));
 
         size_t offset = (y * sizeX + startX) * vectorSize;
-        InputOutputType* px = (InputOutputType*)(pout + offset);
-        InputOutputType* py0 = (InputOutputType*)(pin + stride * y0);
-        InputOutputType* py1 = (InputOutputType*)(pin + stride * y1);
-        InputOutputType* py2 = (InputOutputType*)(pin + stride * y2);
-        InputOutputType* py3 = (InputOutputType*)(pin + stride * y3);
-        InputOutputType* py4 = (InputOutputType*)(pin + stride * y4);
+        auto* px = (InputOutputType*)(pout + offset);
+        auto* py0 = (InputOutputType*)(pin + stride * y0);
+        auto* py1 = (InputOutputType*)(pin + stride * y1);
+        auto* py2 = (InputOutputType*)(pin + stride * y2);
+        auto* py3 = (InputOutputType*)(pin + stride * y3);
+        auto* py4 = (InputOutputType*)(pin + stride * y4);
         for (uint32_t x = startX; x < endX; x++, px++) {
             ConvolveOneU<InputOutputType, ComputationType>(x, px, py0, py1, py2, py3, py4, mFp,
                                                            sizeX);

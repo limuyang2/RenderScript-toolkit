@@ -20,7 +20,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.renderscript.ImageToolkit
+import com.google.android.renderscript.Toolkit
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val testImage1 = BitmapFactory.decodeResource(resources, R.drawable.img800x450a)
-        val bitmap = ImageToolkit.blur(testImage1, 10, null)
+        val bitmap = Toolkit.blur(testImage1, 10, null)
         val img: ImageView = findViewById(R.id.image)
         img.setImageBitmap(bitmap)
         // To debug resources not destroyed

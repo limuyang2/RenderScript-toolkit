@@ -6,12 +6,12 @@
 
 #### 添加依赖
 ```
-implementation("io.github.limuyang2:renderscrip-toolkit:1.0.1")
+implementation("io.github.limuyang2:renderscrip-toolkit:1.0.2")
 ```
 
 #### 使用方法
 ```kotlin
-val newBitmap = ImageToolkit.blur(inputBitmap, 20)
+val newBitmap = Toolkit.blur(inputBitmap, 20)
 ```
 
 

@@ -1,1 +1,1 @@
--keep class com.google.android.renderscript.ImageToolkitKt
+-keep class com.google.android.renderscript.ToolkitKt

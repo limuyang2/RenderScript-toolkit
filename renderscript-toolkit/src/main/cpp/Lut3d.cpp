@@ -101,19 +101,19 @@ void Lut3dTask::kernel(const uchar4* in, uchar4* out, uint32_t length) {
 
         // ALOGE("coord1      %08x %08x %08x %08x", coord1.x, coord1.y, coord1.z, coord1.w);
         const uchar* bp2 = bp + (coord1.x * 4) + (coord1.y * stride_y) + (coord1.z * stride_z);
-        const uchar4* pt_00 = (const uchar4*)&bp2[0];
-        const uchar4* pt_10 = (const uchar4*)&bp2[stride_y];
-        const uchar4* pt_01 = (const uchar4*)&bp2[stride_z];
-        const uchar4* pt_11 = (const uchar4*)&bp2[stride_y + stride_z];
+        const auto* pt_00 = (const uchar4*)&bp2[0];
+        const auto* pt_10 = (const uchar4*)&bp2[stride_y];
+        const auto* pt_01 = (const uchar4*)&bp2[stride_z];
+        const auto* pt_11 = (const uchar4*)&bp2[stride_y + stride_z];
 
-        uint4 v000 = convert<uint4>(pt_00[0]);
-        uint4 v100 = convert<uint4>(pt_00[1]);
-        uint4 v010 = convert<uint4>(pt_10[0]);
-        uint4 v110 = convert<uint4>(pt_10[1]);
-        uint4 v001 = convert<uint4>(pt_01[0]);
-        uint4 v101 = convert<uint4>(pt_01[1]);
-        uint4 v011 = convert<uint4>(pt_11[0]);
-        uint4 v111 = convert<uint4>(pt_11[1]);
+        auto v000 = convert<uint4>(pt_00[0]);
+        auto v100 = convert<uint4>(pt_00[1]);
+        auto v010 = convert<uint4>(pt_10[0]);
+        auto v110 = convert<uint4>(pt_10[1]);
+        auto v001 = convert<uint4>(pt_01[0]);
+        auto v101 = convert<uint4>(pt_01[1]);
+        auto v011 = convert<uint4>(pt_11[0]);
+        auto v111 = convert<uint4>(pt_11[1]);
 
         uint4 yz00 = ((v000 * weight1.x) + (v100 * weight2.x)) >> (int4)7;
         uint4 yz10 = ((v010 * weight1.x) + (v110 * weight2.x)) >> (int4)7;
@@ -126,7 +126,7 @@ void Lut3dTask::kernel(const uchar4* in, uchar4* out, uint32_t length) {
         uint4 v = ((z0 * weight1.z) + (z1 * weight2.z)) >> (int4)15;
         uint4 v2 = (v + 0x7f) >> (int4)8;
 
-        uchar4 ret = convert<uchar4>(v2);
+        auto ret = convert<uchar4>(v2);
         ret.w = in->w;
 
 #if 0

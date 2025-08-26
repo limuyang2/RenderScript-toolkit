@@ -39,8 +39,8 @@ class BlurTask : public Task {
     // So, the max kernel size is 51 (= 2 * 25 + 1).
     // Considering SSSE3 case, which requires the size is multiple of 4,
     // at least 52 words are necessary. Values outside of the kernel should be 0.
-    float mFp[104];
-    uint16_t mIp[104];
+    float mFp[104]{};
+    uint16_t mIp[104]{};
 
     // Working area to store the result of the vertical blur, to be used by the horizontal pass.
     // There's one area per thread. Since the needed working area may be too large to put on the
@@ -51,7 +51,7 @@ class BlurTask : public Task {
 
     // The radius of the blur, in floating point and integer format.
     float mRadius;
-    int mIradius;
+    int mIradius{};
 
     void kernelU4(void* outPtr, uint32_t xstart, uint32_t xend, uint32_t currentY,
                   uint32_t threadIndex);

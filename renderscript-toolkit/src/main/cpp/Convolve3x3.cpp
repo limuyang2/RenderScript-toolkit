@@ -32,8 +32,8 @@ class Convolve3x3Task : public Task {
     void* mOut;
     // Even though we have exactly 9 coefficients, store them in an array of size 16 so that
     // the SIMD instructions can load them in chunks multiple of 8.
-    float mFp[16];
-    int16_t mIp[16];
+    float mFp[16]{};
+    int16_t mIp[16]{};
 
     void kernelU4(uchar* out, uint32_t xstart, uint32_t xend, const uchar* py0, const uchar* py1,
                   const uchar* py2);
@@ -132,10 +132,10 @@ static void ConvolveOneF(uint32_t x, InputOutputType* out, const InputOutputType
  */
 void Convolve3x3Task::kernelU4(uchar* pout, uint32_t xstart, uint32_t xend, const uchar* ppy0,
                                const uchar* ppy1, const uchar* ppy2) {
-    uchar4* out = (uchar4*)pout;
-    const uchar4* py0 = (const uchar4*)ppy0;
-    const uchar4* py1 = (const uchar4*)ppy1;
-    const uchar4* py2 = (const uchar4*)ppy2;
+    auto* out = (uchar4*)pout;
+    const auto* py0 = (const uchar4*)ppy0;
+    const auto* py1 = (const uchar4*)ppy1;
+    const auto* py2 = (const uchar4*)ppy2;
 
     uint32_t x1 = xstart;
     uint32_t x2 = xend;
@@ -194,10 +194,10 @@ static void convolveU(const uchar* pin, uchar* pout, size_t vectorSize, size_t s
         uint32_t y2 = std::max((int32_t)y - 1, 0);
 
         size_t offset = (y * sizeX + startX) * vectorSize;
-        InputOutputType* px = (InputOutputType*)(pout + offset);
-        InputOutputType* py0 = (InputOutputType*)(pin + stride * y2);
-        InputOutputType* py1 = (InputOutputType*)(pin + stride * y);
-        InputOutputType* py2 = (InputOutputType*)(pin + stride * y1);
+        auto* px = (InputOutputType*)(pout + offset);
+        auto* py0 = (InputOutputType*)(pin + stride * y2);
+        auto* py1 = (InputOutputType*)(pin + stride * y);
+        auto* py2 = (InputOutputType*)(pin + stride * y1);
         for (uint32_t x = startX; x < endX; x++, px++) {
             convolveOneU<InputOutputType, ComputationType>(x, px, py0, py1, py2, fp, sizeX);
         }

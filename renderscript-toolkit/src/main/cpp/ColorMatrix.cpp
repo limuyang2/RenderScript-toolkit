@@ -164,15 +164,15 @@ class ColorMatrixTask : public Task {
     uint32_t mOutstep;
     uint32_t mInstep;
 
-    float mFp[16];
-    float mFpa[4];
+    float mFp[16]{};
+    float mFpa[4]{};
 
     // The following four fields are read as constants
     // by the SIMD assembly code.
-    int16_t mIp[16];
-    int mIpa[4];
-    float mTmpFp[16];
-    float mTmpFpa[4];
+    int16_t mIp[16]{};
+    int mIpa[4]{};
+    float mTmpFp[16]{};
+    float mTmpFpa[4]{};
 #if defined(ARCH_ARM64_USE_INTRINSICS)
     FunctionTab_t mFnTab;
 #endif
@@ -180,7 +180,7 @@ class ColorMatrixTask : public Task {
     void kernel(uchar* out, uchar* in, uint32_t xstart, uint32_t xend);
     void updateCoeffCache(float fpMul, float addMul);
 
-    Key_t mLastKey;
+    Key_t mLastKey{};
     unsigned char* mBuf;
     size_t mBufSize;
 
@@ -224,7 +224,7 @@ class ColorMatrixTask : public Task {
         preLaunch(inputVectorSize, outputVectorSize);
 #endif  // ANDROID_RENDERSCRIPT_TOOLKIT_SUPPORTS_FLOAT
     }
-    ~ColorMatrixTask() {
+    ~ColorMatrixTask() override {
         if (mBuf) munmap(mBuf, mBufSize);
         mBuf = nullptr;
         mOptKernel = nullptr;

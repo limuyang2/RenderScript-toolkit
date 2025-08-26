@@ -47,7 +47,7 @@ private const val externalName = "RenderScript Toolkit"
  * Intrinsics allow more flexibility for the type of allocation supported. In particular, this
  * toolkit does not support allocations of floats.
  */
-object ImageToolkit {
+object Toolkit {
     /**
      * Blends a source buffer with the destination buffer.
      *
@@ -1428,7 +1428,7 @@ enum class YuvFormat(val value: Int) {
 /**
  * Define a range of data to process.
  *
- * This class is used to restrict a [ImageToolkit] operation to a rectangular subset of the input
+ * This class is used to restrict a [Toolkit] operation to a rectangular subset of the input
  * tensor.
  *
  * @property startX The index of the first value to be included on the X axis.

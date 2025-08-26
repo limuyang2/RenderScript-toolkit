@@ -24,7 +24,7 @@ import com.google.android.renderscript.BlendingMode
 import com.google.android.renderscript.LookupTable
 import com.google.android.renderscript.Range2d
 import com.google.android.renderscript.Rgba3dArray
-import com.google.android.renderscript.ImageToolkit
+import com.google.android.renderscript.Toolkit
 import com.google.android.renderscript.YuvFormat
 import kotlin.math.abs
 import kotlin.math.min
@@ -146,7 +146,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         timer.measure("ToolkitBlend") {
-            ImageToolkit.blend(mode, sourceArray, toolkitDestArray, sizeX, sizeY, restriction)
+            Toolkit.blend(mode, sourceArray, toolkitDestArray, sizeX, sizeY, restriction)
         }
         if (!validate) return true
 
@@ -185,7 +185,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         timer.measure("ToolkitBlend") {
-            ImageToolkit.blend(mode, sourceBitmap, toolkitDestBitmap, restriction)
+            Toolkit.blend(mode, sourceBitmap, toolkitDestBitmap, restriction)
         }
         if (!validate) return true
 
@@ -240,7 +240,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitBlur") {
-            ImageToolkit.blur(inputArray, vectorSize, sizeX, sizeY, radius, restriction)
+            Toolkit.blur(inputArray, vectorSize, sizeX, sizeY, radius, restriction)
         }
         if (!validate) return true
 
@@ -268,7 +268,7 @@ class Tester(context: Context, private val validate: Boolean) {
         }
 
         val toolkitOutBitmap = timer.measure("ToolkitBlur") {
-            ImageToolkit.blur(bitmap, radius, restriction)
+            Toolkit.blur(bitmap, radius, restriction)
         }
         if (!validate) return true
 
@@ -340,9 +340,9 @@ class Tester(context: Context, private val validate: Boolean) {
         val inputArray = randomByteArray(0x50521f0, sizeX, sizeY, paddedSize(inputVectorSize))
         val addVector = randomFloatArray(0x243238, 4, 1, 1, 0.3f)
         val matrix = when (conversion) {
-            ColorMatrixConversionType.RGB_TO_YUV -> ImageToolkit.rgbToYuvMatrix
-            ColorMatrixConversionType.YUV_TO_RGB -> ImageToolkit.yuvToRgbMatrix
-            ColorMatrixConversionType.GREYSCALE -> ImageToolkit.greyScaleColorMatrix
+            ColorMatrixConversionType.RGB_TO_YUV -> Toolkit.rgbToYuvMatrix
+            ColorMatrixConversionType.YUV_TO_RGB -> Toolkit.yuvToRgbMatrix
+            ColorMatrixConversionType.GREYSCALE -> Toolkit.greyScaleColorMatrix
             ColorMatrixConversionType.RANDOM -> randomFloatArray(0x234348, 4, 4, 1)
         }
 
@@ -361,7 +361,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitColorMatrix") {
-            ImageToolkit.colorMatrix(
+            Toolkit.colorMatrix(
                 inputArray,
                 inputVectorSize,
                 sizeX,
@@ -402,9 +402,9 @@ class Tester(context: Context, private val validate: Boolean) {
     ): Boolean {
         val addVector = randomFloatArray(0x243238, 4, 1, 1, 0.3f)
         val matrix = when (conversion) {
-            ColorMatrixConversionType.RGB_TO_YUV -> ImageToolkit.rgbToYuvMatrix
-            ColorMatrixConversionType.YUV_TO_RGB -> ImageToolkit.yuvToRgbMatrix
-            ColorMatrixConversionType.GREYSCALE -> ImageToolkit.greyScaleColorMatrix
+            ColorMatrixConversionType.RGB_TO_YUV -> Toolkit.rgbToYuvMatrix
+            ColorMatrixConversionType.YUV_TO_RGB -> Toolkit.yuvToRgbMatrix
+            ColorMatrixConversionType.GREYSCALE -> Toolkit.greyScaleColorMatrix
             ColorMatrixConversionType.RANDOM -> randomFloatArray(0x234348, 4, 4, 1)
         }
 
@@ -414,7 +414,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutBitmap = timer.measure("ToolkitColorMatrix") {
-            ImageToolkit.colorMatrix(bitmap, matrix, addVector, restriction)
+            Toolkit.colorMatrix(bitmap, matrix, addVector, restriction)
         }
         if (!validate) return true
 
@@ -478,7 +478,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitConvolve") {
-            ImageToolkit.convolve(inputArray, vectorSize, sizeX, sizeY, coefficients, restriction)
+            Toolkit.convolve(inputArray, vectorSize, sizeX, sizeY, coefficients, restriction)
         }
         if (!validate) return true
 
@@ -508,7 +508,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicConvolve(renderscriptContext, bitmap, coefficients, restriction)
         }
         val toolkitOutBitmap = timer.measure("ToolkitConvolve") {
-            ImageToolkit.convolve(bitmap, coefficients, restriction)
+            Toolkit.convolve(bitmap, coefficients, restriction)
         }
         if (!validate) return true
 
@@ -578,7 +578,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutput = timer.measure("ToolkitHistogram") {
-            ImageToolkit.histogram(inputArray, vectorSize, sizeX, sizeY, restriction)
+            Toolkit.histogram(inputArray, vectorSize, sizeX, sizeY, restriction)
         }
         if (!validate) return true
 
@@ -607,7 +607,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicHistogram(renderscriptContext, bitmap, restriction)
         }
         val toolkitOutput = timer.measure("ToolkitHistogram") {
-            ImageToolkit.histogram(bitmap, restriction)
+            Toolkit.histogram(bitmap, restriction)
         }
         if (!validate) return true
 
@@ -642,7 +642,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitHistogramDot") {
-            ImageToolkit.histogramDot(
+            Toolkit.histogramDot(
                 inputArray, vectorSize, sizeX, sizeY, coefficients, restriction
             )
         }
@@ -673,7 +673,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicHistogramDot(renderscriptContext, bitmap, coefficients, restriction)
         }
         val toolkitOutArray = timer.measure("ToolkitHistogramDot") {
-            ImageToolkit.histogramDot(bitmap, coefficients, restriction)
+            Toolkit.histogramDot(bitmap, coefficients, restriction)
         }
         if (!validate) return true
 
@@ -737,7 +737,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitLUT") {
-            ImageToolkit.lut(inputArray, sizeX, sizeY, table, restriction)
+            Toolkit.lut(inputArray, sizeX, sizeY, table, restriction)
         }
         if (!validate) return true
 
@@ -780,7 +780,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutBitmap = timer.measure("ToolkitLUT") {
-            ImageToolkit.lut(bitmap, table, restriction)
+            Toolkit.lut(bitmap, table, restriction)
         }
         if (!validate) return true
 
@@ -854,7 +854,7 @@ class Tester(context: Context, private val validate: Boolean) {
         }
         val toolkitOutArray = timer.measure("ToolkitLut3d") {
             val toolkitCube = Rgba3dArray(cubeArray, cubeSize.sizeX, cubeSize.sizeY, cubeSize.sizeZ)
-            ImageToolkit.lut3d(inputArray, sizeX, sizeY, toolkitCube, restriction)
+            Toolkit.lut3d(inputArray, sizeX, sizeY, toolkitCube, restriction)
         }
         if (!validate) return true
 
@@ -893,7 +893,7 @@ class Tester(context: Context, private val validate: Boolean) {
         }
         val toolkitOutBitmap = timer.measure("ToolkitLut3d") {
             val toolkitCube = Rgba3dArray(cubeArray, cubeSize.sizeX, cubeSize.sizeY, cubeSize.sizeZ)
-            ImageToolkit.lut3d(bitmap, toolkitCube, restriction)
+            Toolkit.lut3d(bitmap, toolkitCube, restriction)
         }
         if (!validate) return true
 
@@ -984,7 +984,7 @@ class Tester(context: Context, private val validate: Boolean) {
             )
         }
         val toolkitOutArray = timer.measure("ToolkitResize") {
-            ImageToolkit.resize(
+            Toolkit.resize(
                 inputArray, vectorSize, inSizeX, inSizeY, outSizeX, outSizeY, restriction
             )
         }
@@ -1021,7 +1021,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicResize(renderscriptContext, bitmap, outSizeX, outSizeY, restriction)
         }
         val toolkitOutBitmap = timer.measure("ToolkitResize") {
-            ImageToolkit.resize(bitmap, outSizeX, outSizeY, restriction)
+            Toolkit.resize(bitmap, outSizeX, outSizeY, restriction)
         }
         if (!validate) return true
 
@@ -1081,7 +1081,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicYuvToRgb(renderscriptContext, inputArray, sizeX, sizeY, format)
         }
         val toolkitOutArray = timer.measure("ToolkitYuvToRgb") {
-            ImageToolkit.yuvToRgb(inputArray, sizeX, sizeY, format)
+            Toolkit.yuvToRgb(inputArray, sizeX, sizeY, format)
         }
         if (!validate) return true
 
@@ -1115,7 +1115,7 @@ class Tester(context: Context, private val validate: Boolean) {
             intrinsicYuvToRgb(renderscriptContext, inputArray, sizeX, sizeY, format)
         }
         val toolkitOutBitmap = timer.measure("ToolkitYuvToRgb") {
-            ImageToolkit.yuvToRgbBitmap(inputArray, sizeX, sizeY, format)
+            Toolkit.yuvToRgbBitmap(inputArray, sizeX, sizeY, format)
         }
         if (!validate) return true
 
