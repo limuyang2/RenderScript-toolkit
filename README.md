@@ -24,6 +24,7 @@ implementation("io.github.limuyang2:renderscrip-toolkit:1.0.1")
 ```
 
 ## 使用方法
+使用`ImageToolkit`调用各类方法。
 ```kotlin
 // 例：高斯模糊
 val newBitmap = ImageToolkit.blur(inputBitmap, 20)
