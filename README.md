@@ -1,6 +1,6 @@
 # Android RenderScript-toolkit
 
-基于Google官方[toolkit](https://github.com/android/renderscript-intrinsics-replacement-toolkit)编译，用于取代老旧的 `renderscript`。
+基于Google官方[RenderScript-toolkit](https://github.com/android/renderscript-intrinsics-replacement-toolkit)编译，用于取代老旧的 `renderscript`。
 
 该工具包提供了一系列高性能图像处理功能 如模糊、混合和调整大小。已弃用的RenderScript Intrinsics函数的完美替代品。
 
