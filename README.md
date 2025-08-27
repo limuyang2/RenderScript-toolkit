@@ -24,10 +24,32 @@ implementation("io.github.limuyang2:renderscrip-toolkit:1.0.2")
 ```
 
 ## 使用方法
-使用`ImageToolkit`调用各类方法。
+使用`Toolkit`调用各类方法。
 ```kotlin
 // 例：高斯模糊
 val newBitmap = Toolkit.blur(inputBitmap, 20)
+
+// 混合模式
+Toolkit.blend(mode, sourceBitmap, destBitmap)
+
+// 颜色矩阵滤镜
+Toolkit.colorMatrix()
+
+// 卷积
+Toolkit.convolve()
+
+// 直方图和直方图点
+Toolkit.histogram()
+
+// LUT和LUT3D
+Toolkit.lut()
+Toolkit.lut3d()
+
+// 调整大小
+Toolkit.resize()
+
+// YUV to RGB
+Toolkit.yuvToRgb()
 ```
 
 
